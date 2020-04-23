@@ -61,7 +61,14 @@ namespace Microsoft.OpenApi.OData.Operation
             // OperationId
             if (Context.Settings.EnableOperationId)
             {
-                string operationId = String.Join(".", Path.Segments.Where(s => !(s is ODataKeySegment)).Select(s => s.Identifier));
+                var values = Path.Segments.Where(s => !(s is ODataKeySegment)).Select(s => s.Identifier);
+
+                string operationId = values.FirstOrDefault();
+                if (values.Count() > 1)
+                {
+                    operationId = String.Join("_", new[]{ values.First(), values.Last()});
+                }
+
                 if (EdmOperation.IsAction())
                 {
                     operation.OperationId = operationId;

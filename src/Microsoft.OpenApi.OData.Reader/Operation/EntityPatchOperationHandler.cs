@@ -34,7 +34,7 @@ namespace Microsoft.OpenApi.OData.Operation
             if (Context.Settings.EnableOperationId)
             {
                 string typeName = EntitySet.EntityType().Name;
-                operation.OperationId = EntitySet.Name + "." + typeName + ".Update" + Utils.UpperFirstChar(typeName);
+                operation.OperationId = EntitySet.Name + "_Update" + Utils.UpperFirstChar(typeName);
             }
 
             base.SetBasicInfo(operation);

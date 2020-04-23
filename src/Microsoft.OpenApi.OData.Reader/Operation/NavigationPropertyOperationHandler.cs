@@ -162,7 +162,12 @@ namespace Microsoft.OpenApi.OData.Operation
                 }
             }
 
-            return string.Join(".", items);
+            if (items.Count() == 1)
+            {
+                return items.First();
+            }
+
+            return string.Join("_", new[]{items.First(), items.Last()});
         }
     }
 }
