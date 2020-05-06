@@ -229,12 +229,13 @@ namespace OoasGui
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 string output = saveFileDialog.FileName;
-                using (FileStream fs = File.Create(output))
-                {
-                    OpenApiDocument document = EdmModel.ConvertToOpenApi(Settings);
-                    document.Serialize(fs, Version, Format);
-                    fs.Flush();
-                }
+                Convert();
+                var text = oasRichTextBox.Text;
+                text = text.Replace("\"file\"", "\"https\"")
+                    .Replace("/incidents({Id})/Descriptions\"", "/incidents({Id})/DescriptionEntries\"")
+                    .Replace("\"operationId\": \"incidents_ListDescriptions\"","\"operationId\": \"incidents_ListDescriptionEntries\"");
+
+                File.WriteAllText(output, text);
             }
 
             MessageBox.Show("Saved successful!");
