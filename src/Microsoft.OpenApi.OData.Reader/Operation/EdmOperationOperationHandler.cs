@@ -138,6 +138,7 @@ namespace Microsoft.OpenApi.OData.Operation
             if (EdmOperation.IsAction() && EdmOperation.ReturnType == null)
             {
                 operation.Responses.Add(Constants.StatusCode204, Constants.StatusCode204.GetResponse());
+                operation.Responses.Add(Constants.StatusCode200, Constants.StatusCode204.GetResponse());
             }
             else
             {
